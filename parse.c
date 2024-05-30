@@ -1,29 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.c                                     :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/23 18:33:26 by alcarden          #+#    #+#             */
-/*   Updated: 2024/05/29 13:34:14 by alcarden         ###   ########.fr       */
+/*   Created: 2024/05/29 13:47:44 by alcarden          #+#    #+#             */
+/*   Updated: 2024/05/29 13:47:49 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-//./philo 5 800 200 200 [5]
-
-int main (int argc, char *argv[])
-{
-	t_table table;
-
-	if (5 == argc || 6 == argc)
-	{
-		//parse arguments
-	}
-	else
-	{
-		ft_error_exit("Error: wrong input arguments\n");
-	}
-}
