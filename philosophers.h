@@ -1,4 +1,16 @@
-#ifdef PHILOSOPHERS_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philosophers.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/09 23:58:10 by alcarden          #+#    #+#             */
+/*   Updated: 2024/06/09 23:58:11 by alcarden         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
 # include <stdio.h>
