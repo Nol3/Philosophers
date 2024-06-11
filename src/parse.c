@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:47:44 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/11 14:26:30 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:28:32 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ void	ft_parse_args(t_data *t_data, int argc, char *argv[])
 {
 	data->nb_full_p = 0;
 	data->keep_iterating = true;
-	data->nb_philos = ft_atoi(argv[1]);
-	data->die_time = (u_int64_t)ft_atoi(argv[2]);
-	data->eat_time = (u_int64_t)ft_atoi(argv[3]);
-	data->sleep_time = (u_int64_t)ft_atoi(argv[4]);
+	data->nb_philos = ft_atol(argv[1]);
+	data->die_time = (u_int64_t)ft_atol(argv[2]);
+	data->eat_time = (u_int64_t)ft_atol(argv[3]);
+	data->sleep_time = (u_int64_t)ft_atol(argv[4]);
 	if (argc == 6)
 		t_data->nb_meals = ft_atol(argv[5]);
 	else
