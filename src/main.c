@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcarden <alcarden@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 18:33:26 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/11 14:19:06 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:30:09 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,9 @@ int	main(int argc, char *argv[])
 
 	if (5 == argc || 6 == argc)
 	{
-		//parse arguments
 		ft_parse_args(&data, argc, argv);
+		data = *init_data(data->nb_philos);
 	}
 	else
-	{
 		ft_error_exit("Error: wrong input arguments\n");
-	}
 }
-

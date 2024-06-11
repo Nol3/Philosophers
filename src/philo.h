@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcarden <alcarden@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 23:58:10 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/11 14:23:40 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:28:12 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,35 @@
 # include <limits.h>
 # include <inttypes.h>
 
-typedef enum e_philo_state
+typedef pthread_mutex_t	t_mtx;
+
+typedef enum e_time_code
 {
-	EATING = 0,
-	SLEEPING = 1,
-	THINKING = 2,
-	DEAD = 3,
-	FULL = 4,
-	IDLE = 5
-}	t_state;
+	SECONDS,
+	MILLISECOND,
+	MICROSECOND,
+}		t_time_code;
+
+typedef enum e_status
+{
+	EATING,
+	SLEEPING,
+	THINKING,
+	TAKE_FIRST_FORK,
+	TAKE_SECOND_FORK,
+	DIED,
+}			t_philo_status;
+
+typedef enum e_opcode
+{
+	LOCK,
+	UNLOCK,
+	INIT,
+	DESTROY,
+	CREATE,
+	JOIN,
+	DETACH,
+}			t_opcode;
 
 typedef struct s_philo
 {
@@ -54,19 +74,17 @@ typedef struct s_philo
 typedef struct s_data
 {
 	int				nb_philos;
+	bool			keep_iterating;
 	u_int64_t		die_time;
 	u_int64_t		eat_time;
 	u_int64_t		sleep_time;
-	//u_int64_t		think_time;
 	int				nb_meals;
-	int				nb_full_p;
-	bool			keep_iterating;
 	
+	int				nb_full_p;
 	u_int64_t		start_time;
 	pthread_mutex_t	mut_eat_t;
 	pthread_mutex_t	mut_die_t;
 	pthread_mutex_t	mut_sleep_t;
-	//pthread_mutex_t	mut_think_t;
 	pthread_mutex_t	mut_print;
 	pthread_mutex_t	mut_nb_philos;
 	pthread_mutex_t	mut_keep_iter;
@@ -89,5 +107,18 @@ static bool			ft_isspace(char c);
 static const char	*ft_valid_args(const char *str);
 static long			ft_atol(const char *str);
 void				ft_parse_args(t_data *t_data, int argc, char *argv[]);
+
+//init.c
+void				ft_init_data(t_data *data);
+t_philo*			init_philo(int id, t_data* data);
+t_data*				init_data(int nb_philos);
+
+//safe_inits.c
+void				ft_safe_malloc(size_t bytes);
+void				ft_safe_mutex_handle(t_mtx *mutex, t_opcode opcode);
+static void			ft_handle_thread_error(int status, t_opcode opcode);
+void 				ft_safe_mutex_handle(t_mtx *mutex, t_opcode opcode);
+void				ft_safe_thread_handle(pthread_t *thread, 
+										void *(*foo)(void *));
 
 #endif
