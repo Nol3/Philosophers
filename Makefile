@@ -2,6 +2,7 @@ NAME = philo
 FLAGS = -Wall -Werror -Wextra -g
 FILES = $(shell find src -type f -name "*.c")
 OBJS = $(FILES:.c=.o)
+DATE = $(shell /usr/bin/date)
 
 all :$(NAME)
 
@@ -23,7 +24,7 @@ re: fclean all
 
 git:
 	git add .
-	git commit -m "Daily sync $(/usr/bin/date)"
+	git commit -m "Daily sync $(DATE)"
 	git push origin main
 
 .PHONY: re all fclean clean git
