@@ -28,3 +28,14 @@ git:
 	git push origin main
 
 .PHONY: re all fclean clean git
+
+#!/bin/bash
+
+# while true
+# do
+#     DATE=$(date)
+#     git add .
+#     git commit -m "Daily sync $DATE"
+#     git push origin main
+#     sleep 3600
+# done
