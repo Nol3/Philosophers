@@ -1,19 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   gets.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/29 13:29:24 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/12 16:37:18 by alcarden         ###   ########.fr       */
+/*   Created: 2024/06/12 16:23:26 by alcarden          #+#    #+#             */
+/*   Updated: 2024/06/12 20:17:31 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_error_exit(const char *error)
+int	ft_get_nb_philos(t_data *data)
 {
-	printf("%s\n", error);
-	exit(EXIT_FAILURE);
+	int	nb_philos;
+
+	pthread_mutex_lock(&(data->mut_nb_philos));
+	nb_philos = data->nb_philos;
+	pthread_mutex_unlock(&(data->mut_nb_philos));
+	return (nb_philos);
+}
+
+int ft_get_die_time(t_data *data)
+{
+	int	die_time;
+
+	pthread_mutex_lock(&(data->mut_die_time));
+	die_time = data->die_time;
+	pthread_mutex_unlock(&(data->mut_die_time));
+	return (die_time);
 }

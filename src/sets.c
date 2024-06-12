@@ -1,19 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   sets.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/29 13:29:24 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/12 16:37:18 by alcarden         ###   ########.fr       */
+/*   Created: 2024/06/12 16:23:20 by alcarden          #+#    #+#             */
+/*   Updated: 2024/06/12 16:27:15 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_error_exit(const char *error)
-{
-	printf("%s\n", error);
-	exit(EXIT_FAILURE);
-}

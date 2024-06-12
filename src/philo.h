@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 23:58:10 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/12 16:09:55 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/12 20:17:49 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,6 @@
 # include <unistd.h>
 
 typedef pthread_mutex_t	t_mtx;
-
-typedef enum e_time_code
-{
-	SECONDS,
-	MILLISECOND,
-	MICROSECOND,
-}						t_time_code;
 
 typedef enum e_status
 {
@@ -106,11 +99,25 @@ typedef struct s_data
 
 // Prototypes
 
-// utils.c
-void					ft_error_exit(const char *error);
+// gets.c
+int						ft_get_nb_philos(t_data *data);
+int						ft_get_die_time(t_data *data);
+
+// check_monitor.c
+int						ft_check_full(t_data *data);
+int						ft_check_alive(t_data *data);
+
+// time.c
 long					ft_start_time(void);
 void					ft_usleep(long time);
 long					ft_current_time(long start_time);
+
+// gets.c
+int						ft_get_nb_philos(t_data *data);
+int						ft_get_eat_time(t_data *data);
+
+// utils.c
+void					ft_error_exit(const char *error);
 
 // parse.c
 int						ft_isdigit(int c);
@@ -120,9 +127,9 @@ static long				ft_atol(const char *str);
 void					ft_parse_args(t_data *t_data, int argc, char *argv[]);
 
 // init.c
-void					ft_init_data(t_data *data);
 t_philo					*init_philo(int id, t_data *data);
 t_data					*init_data(int nb_philos);
+void					update_last_meal_time(t_philo *philo);
 
 // safe_inits.c
 void					ft_safe_malloc(size_t bytes);
