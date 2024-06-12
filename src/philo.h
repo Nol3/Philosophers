@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 23:58:10 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/12 14:47:00 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:09:55 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,16 @@ typedef enum e_opcode
 	DETACH,
 }						t_opcode;
 
+typedef enum e_philo_state
+{
+	EATING = 0,
+	SLEEPING = 1,
+	THINKING = 2,
+	DEAD = 3,
+	FULL = 4,
+	IDLE = 5
+}	t_state;
+
 typedef struct s_philo
 {
 	int					id;
@@ -78,7 +88,6 @@ typedef struct s_data
 	u_int64_t			eat_time;
 	u_int64_t			sleep_time;
 	int					nb_meals;
-
 	int					nb_full_p;
 	u_int64_t			start_time;
 	pthread_mutex_t		mut_eat_t;
