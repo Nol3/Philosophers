@@ -23,7 +23,7 @@ re: fclean all
 
 git:
 	git add .
-	git commit -m "auto commit"
+	git commit -m "Daily sync $(/usr/bin/date)"
 	git push origin main
 
 .PHONY: re all fclean clean git
