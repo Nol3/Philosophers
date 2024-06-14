@@ -119,6 +119,9 @@ int						ft_get_eat_time(t_data *data);
 // utils.c
 void					ft_error_exit(const char *error);
 
+//main.c
+void 					ft_dinner_check(t_data *data);
+
 // parse.c
 int						ft_isdigit(int c);
 static bool				ft_isspace(char c);

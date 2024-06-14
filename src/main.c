@@ -23,6 +23,7 @@ int	main(int argc, char *argv[])
 		ft_parse_args(&data, argc, argv);
 		data = *init_data(data->nb_philos);
 		ft_monitor_checker(&data);
+		ft_dinner_check(&data);
 		ft_create_threads(&data);
 	}
 	else
@@ -34,11 +35,12 @@ int	ft_create_threads(t_data *data)
 	int	i;
 	int	number_of_philos;
 
-	i = 0;
+	i = -1;
 	number_of_philos = ft_get_nb_philos(data);
 	data->start_time = ft_start_time();
-	while (i < number_of_philos)
+	while (++i < number_of_philos)
 	{
+		ft_safe_thread_handle();
 	}
 	return (0);
 }
@@ -56,5 +58,15 @@ void	ft_monitor_checker(t_data *data)
 		exit = ft_check_alive(data);
 		if (exit == 1)
 			break ;
+	}
+}
+
+void ft_dinner_check(t_data *data)
+{
+	if (data->nb_meals == 0)
+		ft_error_exit("Error: Number of meals incorrect.\n")
+	else if (data->nb_philos == 1)
+	{
+		//Condición específica
 	}
 }

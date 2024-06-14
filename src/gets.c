@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:23:26 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/12 20:17:31 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:51:01 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_get_nb_philos(t_data *data)
 	return (nb_philos);
 }
 
-int ft_get_die_time(t_data *data)
+int	ft_get_die_time(t_data *data)
 {
 	int	die_time;
 
