@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 18:33:26 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/12 20:00:08 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/14 21:00:18 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_create_threads(t_data *data)
 	data->start_time = ft_start_time();
 	while (++i < number_of_philos)
 	{
-		ft_safe_thread_handle();
+		ft_safe_thread_handle(data->philo_ths[i], &ft_philo, data->philos[i], CREATE);
 	}
 	return (0);
 }
@@ -61,12 +61,22 @@ void	ft_monitor_checker(t_data *data)
 	}
 }
 
-void ft_dinner_check(t_data *data)
+void	ft_dinner_check(t_data *data)
 {
 	if (data->nb_meals == 0)
 		ft_error_exit("Error: Number of meals incorrect.\n")
 	else if (data->nb_philos == 1)
 	{
-		//Condición específica
+		//Condición específica cuando solo hay un filósofo
+	}
+}
+
+void	ft_philo(t_philo *philo)
+{
+	while (1)
+	{
+		ft_philo_think(philo);
+		ft_philo_eat(philo);
+		ft_philo_sleep(philo);
 	}
 }

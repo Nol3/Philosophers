@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:13:23 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/11 18:18:11 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/14 20:58:51 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_safe_mutex_handle(t_mtx *mutex, t_opcode opcode)
 
 static void	ft_handle_thread_error(int status, t_opcode opcode)
 {
-	if (0 == status)
+	if (status == 0)
 		return ;
 	if (EAGAIN == status)
 		error_exit("No resources to create another thread");
@@ -83,7 +83,8 @@ void ft_safe_mutex_handle(t_mtx *mutex, t_opcode opcode)
 			LOCK, UNLOCK, INIT, DESTROY\n");
 }
 
-void	ft_safe_thread_handle(pthread_t *thread, void *(*foo)(void *))
+void	ft_safe_thread_handle(pthread_t *thread, void *(*foo)(void *),
+		void *data, t_opcode opcode)
 {
 	if (CREATE == opcode)
 		ft_handle_thread_error(pthread_create(thread, NULL, foo, NULL), opcode);

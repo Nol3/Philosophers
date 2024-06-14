@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 23:58:10 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/12 20:17:49 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/14 20:59:42 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void					ft_safe_malloc(size_t bytes);
 void					ft_safe_mutex_handle(t_mtx *mutex, t_opcode opcode);
 static void				ft_handle_thread_error(int status, t_opcode opcode);
 void					ft_safe_mutex_handle(t_mtx *mutex, t_opcode opcode);
-void					ft_safe_thread_handle(pthread_t *thread,
-							void *(*foo)(void *));
+void					ft_safe_thread_handle(pthread_t *thread, 
+					void *(*foo)(void *), void *data, t_opcode opcode)
 
 #endif
