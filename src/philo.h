@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 23:58:10 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/14 20:59:42 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:15:05 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,21 @@ typedef struct s_data
 
 // Prototypes
 
+//set.c
+void					ft_set_keep_iter(t_data *data, int value);
+void 					ft_set_philo_state(t_philo *philo, int state);
+
+// actions.c
+void					ft_philo_think(t_philo *philo);
+void					ft_philo_eat(t_philo *philo);
+void					ft_philo_sleep(t_philo *philo);
+
 // gets.c
 int						ft_get_nb_philos(t_data *data);
-int						ft_get_die_time(t_data *data);
+int						ft_get_eat_time(t_data *data);
+int						ft_get_nb_meals_had(t_philo *philo);
+int						ft_get_philo_state(t_philo *philo);
+bool					ft_get_keep_iter(t_data *data);
 
 // check_monitor.c
 int						ft_check_full(t_data *data);
@@ -120,7 +132,10 @@ int						ft_get_eat_time(t_data *data);
 void					ft_error_exit(const char *error);
 
 //main.c
-void 					ft_dinner_check(t_data *data);
+int						ft_create_threads(t_data *data);
+void					ft_monitor_checker(t_data *data);
+void					ft_dinner_check(t_data *data);
+void					ft_philo(t_philo *philo);
 
 // parse.c
 int						ft_isdigit(int c);
