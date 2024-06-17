@@ -6,13 +6,13 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:10:12 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/17 17:15:46 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:26:07 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-//PLACEHOLDER LAS 3 ACCIONES
+//PLACEHOLDER FUNCTIONS
 
 void ft_philo_eat(t_data *data, t_philo *philo)
 {

@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 23:58:10 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/17 17:15:05 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:29:25 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,23 @@
 # include <sys/time.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# define GREEN "\033[0;32m"
+# define YELLOW "\033[0;33m"
+# define BLUE "\033[0;34m"
+# define MAGENTA "\033[0;35m"
+# define CYAN "\033[0;36m"
 
 typedef pthread_mutex_t	t_mtx;
 
-typedef enum e_status
-{
-	EATING,
-	SLEEPING,
-	THINKING,
-	TAKE_FIRST_FORK,
-	TAKE_SECOND_FORK,
-	DIED,
-}						t_philo_status;
+// typedef enum e_status
+// {
+// 	EATING,
+// 	SLEEPING,
+// 	THINKING,
+// 	TAKE_FIRST_FORK,
+// 	TAKE_SECOND_FORK,
+// 	DIED,
+// }						t_philo_status;
 
 typedef enum e_opcode
 {
@@ -49,15 +54,6 @@ typedef enum e_opcode
 	DETACH,
 }						t_opcode;
 
-typedef enum e_philo_state
-{
-	EATING = 0,
-	SLEEPING = 1,
-	THINKING = 2,
-	DEAD = 3,
-	FULL = 4,
-	IDLE = 5
-}	t_state;
 
 typedef struct s_philo
 {
@@ -130,6 +126,8 @@ int						ft_get_eat_time(t_data *data);
 
 // utils.c
 void					ft_error_exit(const char *error);
+void					ft_free_data(t_data *data);
+void					ft_free_philo(t_philo *philo);
 
 //main.c
 int						ft_create_threads(t_data *data);
