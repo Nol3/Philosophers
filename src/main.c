@@ -6,22 +6,22 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 18:33:26 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/17 17:15:26 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/17 20:49:59 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-//./philo 5 800 200 200 [5]
+//./philo 5 800 200 200 [5] (example)
 
 int	main(int argc, char *argv[])
 {
-	t_data	data;
+	t_data	*data;
 
 	if (5 == argc || 6 == argc)
 	{
 		ft_parse_args(&data, argc, argv);
-		data = *init_data(data->nb_philos);
+		data = init_data(data->nb_philos);
 		ft_monitor_checker(&data);
 		ft_dinner_check(&data);
 		ft_create_threads(&data);
@@ -40,7 +40,7 @@ int	ft_create_threads(t_data *data)
 	data->start_time = ft_start_time();
 	while (++i < number_of_philos)
 	{
-		ft_safe_thread_handle(data->philo_ths[i], &ft_philo, data->philos[i], CREATE);
+		ft_safe_thread_handle(data->philo_ths[i], (void*)&ft_philo, (void*)&data->philos[i], CREATE);
 	}
 	return (0);
 }
@@ -64,20 +64,20 @@ void	ft_monitor_checker(t_data *data)
 void	ft_dinner_check(t_data *data)
 {
 	if (data->nb_meals == 0)
-		ft_error_exit("Error: Number of meals incorrect.\n")
+		ft_error_exit("Error: Number of meals incorrect.\n");
 	else if (data->nb_philos == 1)
 	{
 		//Condición específica cuando solo hay un filósofo
 	}
 }
 //PLACEHOLDER
-void	ft_philo(t_philo *philo)
-{
-	while (1)
-	{
-		ft_philo_think(philo);
-		ft_philo_eat(philo);
-		ft_philo_sleep(philo);
-	}
-}
+// void	ft_philo(t_philo *philo)
+// {
+// 	while (1)
+// 	{
+// 		ft_philo_think(philo);
+// 		ft_philo_eat(philo);
+// 		ft_philo_sleep(philo);
+// 	}
+// }
 

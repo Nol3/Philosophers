@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 23:58:10 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/17 17:29:25 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/17 20:23:00 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@
 
 typedef pthread_mutex_t	t_mtx;
 
-// typedef enum e_status
-// {
-// 	EATING,
-// 	SLEEPING,
-// 	THINKING,
-// 	TAKE_FIRST_FORK,
-// 	TAKE_SECOND_FORK,
-// 	DIED,
-// }						t_philo_status;
+typedef enum e_philo_state
+{
+	EATING = 0,
+	SLEEPING = 1,
+	THINKING = 2,
+	DEAD = 3,
+	FULL = 4,
+	IDLE = 5
+}	t_state;
 
 typedef enum e_opcode
 {
@@ -54,11 +54,11 @@ typedef enum e_opcode
 	DETACH,
 }						t_opcode;
 
-
 typedef struct s_philo
 {
 	int					id;
 	int					nb_meals_had;
+	int					is_alive;
 	struct s_data		*data;
 	t_state				state;
 	pthread_mutex_t		*left_f;
@@ -95,16 +95,22 @@ typedef struct s_data
 
 // Prototypes
 
+//forks.c
+
+
 //set.c
 void					ft_set_keep_iter(t_data *data, int value);
 void 					ft_set_philo_state(t_philo *philo, int state);
 
 // actions.c
-void					ft_philo_think(t_philo *philo);
-void					ft_philo_eat(t_philo *philo);
-void					ft_philo_sleep(t_philo *philo);
+void 					ft_update_last_meal_time(t_philo *philo);
+void 					ft_update_nb_meals(t_philo *philo);
+int						ft_philo_think(t_data *data, t_philo *philo);
+void					ft_philo_eat(t_data *data, t_philo *philo);
+int						ft_philo_sleep(t_data *data, t_philo *philo);
 
-// gets.c
+// gets.c  *organizar*
+int 					ft_get_sleep_time(t_data *data);
 int						ft_get_nb_philos(t_data *data);
 int						ft_get_eat_time(t_data *data);
 int						ft_get_nb_meals_had(t_philo *philo);
@@ -128,6 +134,7 @@ int						ft_get_eat_time(t_data *data);
 void					ft_error_exit(const char *error);
 void					ft_free_data(t_data *data);
 void					ft_free_philo(t_philo *philo);
+void 					ft_print_philo_state(t_philo *philo, t_state state, char *color);
 
 //main.c
 int						ft_create_threads(t_data *data);

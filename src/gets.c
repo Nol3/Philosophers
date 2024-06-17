@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:23:26 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/17 16:59:52 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/17 20:55:38 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,22 @@ int	ft_get_nb_philos(t_data *data)
 	return (nb_philos);
 }
 
+int ft_get_sleep_time(t_data *data)
+{
+	uint64_t	sleep_time;
+
+	pthread_mutex_lock(&(data->mut_sleep_t);
+	sleep_time = data->sleep_time;
+	pthread_mutex_unlock(&(data->mut_sleep_t));
+	return (sleep_time);
+}
+
 int 	ft_get_eat_time(t_data *data)
 {
-	int	eat_time;
+	uint64_t	eat_time;
 
 	pthread_mutex_lock(&(data->mut_eat_t));
-	eat_time = data->eat_t;
+	eat_time = data->eat_time;
 	pthread_mutex_unlock(&(data->mut_eat_t));
 	return (eat_time);
 }
@@ -57,7 +67,7 @@ bool ft_get_keep_iter(t_data *data)
 	bool	keep_iter;
 
 	pthread_mutex_lock(&(data->mut_keep_iter));
-	keep_iter = data->keep_iter;
+	keep_iter = data->keep_iterating;
 	pthread_mutex_unlock(&(data->mut_keep_iter));
 	return (keep_iter);
 }

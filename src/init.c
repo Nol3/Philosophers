@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:54:59 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/12 19:48:08 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/17 20:54:49 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_philo	*init_philo(int id, t_data *data)
 	philo = (t_philo *)ft_safe_malloc(sizeof(t_philo));
 	philo->id = id;
 	philo->nb_meals_had = 0;
+	philo->is_alive = 1;
 	philo->data = data;
 	philo->state = THINKING;
 	philo->left_f = ft_safe_malloc(sizeof(pthread_mutex_t));
@@ -37,7 +38,7 @@ t_data	*init_data(int nb_philos)
 	t_data	*data;
 
 	i = -1;
-	*data = (t_data *)ft_safe_malloc(sizeof(t_data));
+	data = (t_data *)ft_safe_malloc(sizeof(t_data));
 	data->nb_full_p = 0;
 	data->start_time = 0;
 	ft_safe_mutex_handle(&(data->mut_eat_t), INIT);
