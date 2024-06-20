@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: alcarden <alcarden@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 18:33:26 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/17 20:49:59 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:56:08 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ int	ft_create_threads(t_data *data)
 	while (++i < number_of_philos)
 	{
 		ft_safe_thread_handle(data->philo_ths[i], (void*)&ft_philo, (void*)&data->philos[i], CREATE);
+		// Verificación adicional después de crear los hilos
+		printf("Thread %d created for Philo %d\n", i, data->philos[i].id);
+		printf("Philo %d: left_f = %p, right_f = %p\n", data->philos[i].id, (void*)data->philos[i].left_f, (void*)data->philos[i].right_f);
 	}
 	return (0);
 }
@@ -70,6 +73,7 @@ void	ft_dinner_check(t_data *data)
 		//Condición específica cuando solo hay un filósofo
 	}
 }
+
 //PLACEHOLDER
 // void	ft_philo(t_philo *philo)
 // {

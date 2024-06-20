@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: alcarden <alcarden@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 23:58:10 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/17 22:01:56 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:47:46 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,18 @@
 # define MAGENTA "\033[0;35m"
 # define CYAN "\033[0;36m"
 
+// STRUCTS
+
 typedef pthread_mutex_t	t_mtx;
 
 typedef enum e_philo_state
 {
-	EATING = 0,
-	SLEEPING = 1,
-	THINKING = 2,
-	DEAD = 3,
-	FULL = 4,
-	IDLE = 5
+	EATING,
+	SLEEPING,
+	THINKING,
+	DEAD,
+	FULL,
+	IDLE,
 }	t_state;
 
 typedef enum e_opcode
@@ -94,7 +96,7 @@ typedef struct s_data
 	t_philo				*philos;
 }						t_data;
 
-// Prototypes
+// PROTOTYPES
 
 //forks.c
 
@@ -110,7 +112,7 @@ int						ft_philo_think(t_data *data, t_philo *philo);
 void					ft_philo_eat(t_data *data, t_philo *philo);
 int						ft_philo_sleep(t_data *data, t_philo *philo);
 
-// gets.c  *organizar*
+// gets.c  *organizar, hay más de 5*
 int 					ft_get_sleep_time(t_data *data);
 int						ft_get_nb_philos(t_data *data);
 int						ft_get_eat_time(t_data *data);
@@ -135,7 +137,8 @@ int						ft_get_eat_time(t_data *data);
 void					ft_error_exit(const char *error);
 void					ft_free_data(t_data *data);
 void					ft_free_philo(t_philo *philo);
-void 					ft_print_philo_state(t_philo *philo, t_state state, char *color);
+void 					ft_print_philo_state(t_philo *philo, 
+							t_state state, char *color);
 
 //main.c
 int						ft_create_threads(t_data *data);

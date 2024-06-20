@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:47:44 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/11 14:28:32 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:04:12 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static bool	ft_isspace(char c)
 static const char	*ft_valid_args(const char *str)
 {
 	int			len;
-	conts char	*num;
+	const char	*num;
 
 	len = 0;
 	while (ft_isspace(*str))
@@ -61,9 +61,10 @@ static long	ft_atol(const char *str)
 	}
 	if (num > INT_MAX)
 		ft_error_exit("Error: wrong input, number too big\n");
+	return num;
 }
 
-void	ft_parse_args(t_data *t_data, int argc, char *argv[])
+void	ft_parse_args(t_data *data, int argc, char *argv[])
 {
 	data->nb_full_p = 0;
 	data->keep_iterating = true;
@@ -72,15 +73,13 @@ void	ft_parse_args(t_data *t_data, int argc, char *argv[])
 	data->eat_time = (u_int64_t)ft_atol(argv[3]);
 	data->sleep_time = (u_int64_t)ft_atol(argv[4]);
 	if (argc == 6)
-		t_data->nb_meals = ft_atol(argv[5]);
+		data->nb_meals = ft_atol(argv[5]);
 	else
-		t_data->nb_meals = -1;
-	if (t_data->nb_philos < 2 || t_data->nb_philos > 200)
+		data->nb_meals = -1;
+	if (data->nb_philos < 2 || data->nb_philos > 200)
 		ft_error_exit("Error: wrong input, number of philos\n");
-	if (t_data->eat_time < 60 || t_data->sleep_time < 60
-		|| t_data->think_time < 60)
+	if (data->eat_time < 60 || data->sleep_time < 60)
 		ft_error_exit("Error: wrong input, time too short\n");
-	if (t_data->nb_meals < 1)
+	if (data->nb_meals < 1)
 		ft_error_exit("Error: wrong input, number of meals\n");
 }
-
