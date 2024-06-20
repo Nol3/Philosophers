@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: alcarden <alcarden@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:24 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/20 18:54:47 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/20 20:35:47 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ void ft_free_data(t_data *data)
 	pthread_mutex_destroy(&(data->mut_start_time));
 	free(data->philo_ths);
 	free(data->forks);
-	free(data->philos);	
+	free(data->philos);
 	ft_free_philo(data->philos);
-	free(data);	
+	free(data);
 }
 
 void ft_free_philo(t_philo *philo)

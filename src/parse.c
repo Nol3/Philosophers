@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: alcarden <alcarden@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:16:18 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/20 19:12:17 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/20 20:38:02 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static long	ft_atol(const char *str)
 	}
 	if (num > INT_MAX)
 		ft_error_exit("Error: wrong input, number too big\n");
-	return num;
+	return (num);
 }
 
 void	ft_parse_args(t_data *data, int argc, char *argv[])
