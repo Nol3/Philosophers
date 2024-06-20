@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:23:26 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/17 20:55:38 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:35:31 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int ft_get_sleep_time(t_data *data)
 {
 	uint64_t	sleep_time;
 
-	pthread_mutex_lock(&(data->mut_sleep_t);
+	pthread_mutex_lock(&(data->mut_sleep_t));
 	sleep_time = data->sleep_time;
 	pthread_mutex_unlock(&(data->mut_sleep_t));
 	return (sleep_time);

@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:10:12 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/17 20:55:59 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:34:39 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int ft_philo_sleep(t_data *data, t_philo *philo)
     return (0);
 }
 //GREEN FOR THINKING
-int ft_philo_think(t_data *data, t_philo *philo)
+int ft_philo_think(t_philo *philo)
 {
     ft_set_philo_state(philo, THINKING);
     if (ft_get_philo_state(philo) == DEAD)

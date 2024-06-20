@@ -6,13 +6,13 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:13:23 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/14 20:58:51 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:42:05 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_safe_malloc(size_t bytes)
+void	*ft_safe_malloc(size_t bytes)
 {
 	void	*ptr;
 
@@ -22,7 +22,7 @@ void	ft_safe_malloc(size_t bytes)
 	return (ptr);
 }
 
-void	ft_safe_mutex_handle(t_mtx *mutex, t_opcode opcode)
+void	ft_safe_mutex(t_mtx *mutex, t_opcode opcode)
 {
 	int	ret;
 
@@ -48,23 +48,23 @@ void	ft_safe_mutex_handle(t_mtx *mutex, t_opcode opcode)
 	}
 }
 
-static void	ft_handle_thread_error(int status, t_opcode opcode)
+void	ft_handle_thread_error(int status, t_opcode opcode)
 {
 	if (status == 0)
 		return ;
 	if (EAGAIN == status)
-		error_exit("No resources to create another thread");
+		ft_error_exit("No resources to create another thread");
 	else if (EPERM == status)
-		error_exit("The caller does not have appropriate permission\n");
+		ft_error_exit("The caller does not have appropriate permission\n");
 	else if (EINVAL == status && CREATE == opcode)
-		error_exit("The value specified by attr is invalid.");
+		ft_error_exit("The value specified by attr is invalid.");
 	else if (EINVAL == status && (JOIN == opcode || DETACH == opcode))
-		error_exit("The value specified by thread is not joinable\n");
+		ft_error_exit("The value specified by thread is not joinable\n");
 	else if (ESRCH == status)
-		error_exit("No thread could be found corresponding to that"
+		ft_error_exit("No thread could be found corresponding to that"
 			"specified by the given thread ID, thread.");
 	else if (EDEADLK == status)
-		error_exit("A deadlock was detected or the value of"
+		ft_error_exit("A deadlock was detected or the value of"
 			"thread specifies the calling thread.");
 }
 
@@ -79,12 +79,10 @@ void ft_safe_mutex_handle(t_mtx *mutex, t_opcode opcode)
 	else if (DESTROY == opcode)
 		ft_handle_thread_error(pthread_mutex_destroy(mutex), opcode);
 	else
-		error_exit("Error: wrong opcode. it Need: \n
-			LOCK, UNLOCK, INIT, DESTROY\n");
+		ft_error_exit("Error: wrong opcode. it Need: \n LOCK, UNLOCK, INIT, DESTROY\n");
 }
 
-void	ft_safe_thread_handle(pthread_t *thread, void *(*foo)(void *),
-		void *data, t_opcode opcode)
+void	ft_safe_thread_handle(pthread_t *thread, void *(*foo)(void *), t_opcode opcode)
 {
 	if (CREATE == opcode)
 		ft_handle_thread_error(pthread_create(thread, NULL, foo, NULL), opcode);
@@ -93,6 +91,5 @@ void	ft_safe_thread_handle(pthread_t *thread, void *(*foo)(void *),
 	else if (DETACH == opcode)
 		ft_handle_thread_error(pthread_detach(*thread), opcode);
 	else
-		error_exit("Error: wrong opcode. it Need: \n
-			CREATE, JOIN, DETACH\n");	
+		ft_error_exit("Error: wrong opcode. it Need: \n CREATE, JOIN, DETACH\n");	
 }

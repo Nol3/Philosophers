@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:24 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/17 21:20:51 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:54:47 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,20 @@ void	ft_error_exit(const char *error)
 
 void ft_print_philo_state(t_philo *philo, t_state state, char *color)
 {
-	uint64_t time;
+    long time;
 
-	time = ft_get_time();
-	printf("%s%llu %d is %d\033[0m\n", color, time, philo->id, state);
+    time = ft_start_time();
+    printf("%s%ld %d is %d\033[0m\n", color, time, philo->id, state);
 }
+// void ft_print_philo_state2(t_philo *philo)
+// {
+// 	u_int64_t	time;
 
-{
-	u_int64_t	time;
-
-	time = ft_get_time();
-	pthread_mutex_lock(&(philo->mut_last_eat_time));
-	printf("%llu %d is %d\n", time, philo->id, philo->state);
-	pthread_mutex_unlock(&(philo->mut_last_eat_time));
-}
+// 	time = ft_start_time();
+// 	pthread_mutex_lock(&(philo->mut_last_eat_time));
+// 	printf("%llu %d is %d\n", time, philo->id, philo->state);
+// 	pthread_mutex_unlock(&(philo->mut_last_eat_time));
+// }
 
 void ft_free_data(t_data *data)
 {

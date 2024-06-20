@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:42:21 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/17 17:31:28 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:35:19 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_check_alive(t_data *data)
 	number_of_philos = ft_get_nb_philos(data);
 	while (++i < number_of_philos)
 	{
-		if (ft_get_time() - data->philos[i].last_eat_time > data->die_time)
+		if (ft_start_time() - data->philos[i].last_eat_time > data->die_time)
 		{
 			ft_set_philo_state(&data->philos[i], DEAD);
 			return (1);

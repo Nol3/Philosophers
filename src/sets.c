@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:23:20 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/17 17:01:04 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:47:24 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void 	ft_set_keep_iter(t_data *data, int value)
 {
 	pthread_mutex_lock(&(data->mut_keep_iter));
-	data->keep_iter = value;
+	data->keep_iterating = value;
 	pthread_mutex_unlock(&(data->mut_keep_iter));
 }
 

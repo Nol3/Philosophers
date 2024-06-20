@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcarden <alcarden@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:54:59 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/20 18:04:44 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:11:40 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,11 @@ t_philo	*init_philo(int id, t_data *data)
 	return (philo);
 }
 
-t_data	*init_data(int nb_philos)
+t_data	*init_data(int nb_philos, t_data *data)
 {
 	int		i;
-	t_data	*data;
 
 	i = -1;
-	data = (t_data *)ft_safe_malloc(sizeof(t_data));
 	data->nb_full_p = 0;
 	data->start_time = 0;
 	ft_safe_mutex_handle(&(data->mut_eat_t), INIT);

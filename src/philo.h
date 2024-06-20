@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcarden <alcarden@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 23:58:10 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/20 17:47:46 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:12:47 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <sys/time.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <signal.h>
 
 # define GREEN "\033[0;32m"
 # define YELLOW "\033[0;33m"
@@ -103,12 +104,12 @@ typedef struct s_data
 
 //set.c
 void					ft_set_keep_iter(t_data *data, int value);
-void 					ft_set_philo_state(t_philo *philo, int state);
+void 					ft_set_philo_state(t_philo *philo, t_state state);
 
 // actions.c
 void 					ft_update_last_meal_time(t_philo *philo);
 void 					ft_update_nb_meals(t_philo *philo);
-int						ft_philo_think(t_data *data, t_philo *philo);
+int						ft_philo_think(t_philo *philo);
 void					ft_philo_eat(t_data *data, t_philo *philo);
 int						ft_philo_sleep(t_data *data, t_philo *philo);
 
@@ -126,7 +127,7 @@ int						ft_check_alive(t_data *data);
 
 // time.c
 long					ft_start_time(void);
-void					ft_usleep(long time);
+int						ft_usleep(long time);
 long					ft_current_time(long start_time);
 
 // gets.c
@@ -148,22 +149,21 @@ void					ft_philo(t_philo *philo);
 
 // parse.c
 int						ft_isdigit(int c);
-static bool				ft_isspace(char c);
-static const char		*ft_valid_args(const char *str);
-static long				ft_atol(const char *str);
+//bool					ft_isspace(char c);
+//const char			*ft_valid_args(const char *str);
+//long					ft_atol(const char *str);
 void					ft_parse_args(t_data *t_data, int argc, char *argv[]);
 
 // init.c
 t_philo					*init_philo(int id, t_data *data);
-t_data					*init_data(int nb_philos);
+t_data					*init_data(int nb_philos, t_data *data);
 void					update_last_meal_time(t_philo *philo);
 
 // safe_inits.c
-void					ft_safe_malloc(size_t bytes);
+void					*ft_safe_malloc(size_t bytes);
+void					ft_safe_mutex(t_mtx *mutex, t_opcode opcode);
+void					ft_handle_thread_error(int status, t_opcode opcode);
 void					ft_safe_mutex_handle(t_mtx *mutex, t_opcode opcode);
-static void				ft_handle_thread_error(int status, t_opcode opcode);
-void					ft_safe_mutex_handle(t_mtx *mutex, t_opcode opcode);
-void					ft_safe_thread_handle(pthread_t *thread, 
-					void *(*foo)(void *), void *data, t_opcode opcode)
+void					ft_safe_thread_handle(pthread_t *thread, void *(*foo)(void *),t_opcode opcode);
 
 #endif

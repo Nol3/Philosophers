@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcarden <alcarden@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 18:33:26 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/20 17:56:08 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:11:51 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,15 @@ int	main(int argc, char *argv[])
 {
 	t_data	*data;
 
+	data = NULL;
 	if (5 == argc || 6 == argc)
 	{
-		ft_parse_args(&data, argc, argv);
-		data = init_data(data->nb_philos);
-		ft_monitor_checker(&data);
-		ft_dinner_check(&data);
-		ft_create_threads(&data);
+		ft_parse_args(data, argc, argv);
+		data = init_data(data->nb_philos, data);
+		
+		ft_monitor_checker(data);
+		ft_dinner_check(data);
+		ft_create_threads(data);
 	}
 	else
 		ft_error_exit("Error: wrong input arguments\n");
@@ -40,7 +42,7 @@ int	ft_create_threads(t_data *data)
 	data->start_time = ft_start_time();
 	while (++i < number_of_philos)
 	{
-		ft_safe_thread_handle(data->philo_ths[i], (void*)&ft_philo, (void*)&data->philos[i], CREATE);
+		//ft_safe_thread_handle(data->philo_ths[i], (void*)&ft_philo, (void*)&data->philos[i], CREATE);
 		// Verificación adicional después de crear los hilos
 		printf("Thread %d created for Philo %d\n", i, data->philos[i].id);
 		printf("Philo %d: left_f = %p, right_f = %p\n", data->philos[i].id, (void*)data->philos[i].left_f, (void*)data->philos[i].right_f);

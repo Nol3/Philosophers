@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcarden <alcarden@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/29 13:47:44 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/20 18:04:12 by alcarden         ###   ########.fr       */
+/*   Created: 2024/06/20 18:16:18 by alcarden          #+#    #+#             */
+/*   Updated: 2024/06/20 19:12:17 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static long	ft_atol(const char *str)
 
 void	ft_parse_args(t_data *data, int argc, char *argv[])
 {
+	data = (t_data *)ft_safe_malloc(sizeof(t_data));
 	data->nb_full_p = 0;
 	data->keep_iterating = true;
 	data->nb_philos = ft_atol(argv[1]);

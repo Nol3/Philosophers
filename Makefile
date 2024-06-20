@@ -1,5 +1,5 @@
 NAME = philo
-FLAGS = -Wall -Werror -Wextra -g
+FLAGS = -Wall -Werror -Wextra -pthread
 FILES = $(shell find src -type f -name "*.c")
 OBJS = $(FILES:.c=.o)
 DATE = $(shell /usr/bin/date)
@@ -7,18 +7,16 @@ DATE = $(shell /usr/bin/date)
 all :$(NAME)
 
 $(NAME) : $(OBJS)
-	@gcc $(FLAGS) $(OBJS) -o $(NAME)
+	@gcc $(FLAGS) $(OBJS) -o $(NAME) -pthread
 
 src/%.o : src/%.c
 	gcc $(FLAGS) -c $< -o $@
 
 clean:
 	@rm -f $(OBJS)
-	make -C include clean
 
 fclean:
 	@rm -f $(NAME) $(OBJS)
-	make -C include fclean
 
 re: fclean all
 
