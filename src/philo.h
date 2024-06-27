@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 23:58:10 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/20 19:12:47 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:21:10 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ typedef struct s_data
 // PROTOTYPES
 
 //forks.c
-
+void	ft_take_fork(t_philo philo);
+void	ft_drop_fork(t_philo philo);
 
 //set.c
 void					ft_set_keep_iter(t_data *data, int value);
@@ -138,7 +139,7 @@ int						ft_get_eat_time(t_data *data);
 void					ft_error_exit(const char *error);
 void					ft_free_data(t_data *data);
 void					ft_free_philo(t_philo *philo);
-void 					ft_print_philo_state(t_philo *philo, 
+void 					ft_print_philo_state(t_philo *philo,
 							t_state state, char *color);
 
 //main.c
