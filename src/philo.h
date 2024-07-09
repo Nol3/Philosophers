@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 23:58:10 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/27 15:21:10 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:29:40 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ typedef struct s_data
 	pthread_mutex_t		mut_die_t;
 	pthread_mutex_t		mut_sleep_t;
 	pthread_mutex_t		mut_print;
+	pthread_mutex_t 	mut_life;
+	//init
 	pthread_mutex_t		mut_nb_philos;
 	pthread_mutex_t		mut_keep_iter;
 	pthread_mutex_t		mut_start_time;
@@ -100,8 +102,8 @@ typedef struct s_data
 // PROTOTYPES
 
 //forks.c
-void	ft_take_fork(t_philo philo);
-void	ft_drop_fork(t_philo philo);
+void					ft_take_fork(t_philo philo);
+void					ft_drop_fork(t_philo philo);
 
 //set.c
 void					ft_set_keep_iter(t_data *data, int value);
