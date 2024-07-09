@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:10:12 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/20 18:34:39 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/09 17:15:39 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,31 @@ void ft_update_nb_meals(t_philo *philo)
 }
 
 //MAGENTA FOR EATING
-// void ft_philo_eat(t_philo *philo)
-// {
-	//TODO
-// }
+void ft_philo_eat(t_data *data, t_philo *philo)
+{
+    ft_set_philo_state(philo, EATING);
+    if (ft_get_philo_state(philo) == DEAD)
+        return ;
+    ft_print_philo_state(philo, EATING, MAGENTA);
+    ft_update_last_meal_time(philo);
+    ft_usleep(ft_get_eat_time(data));
+    ft_update_nb_meals(philo);
+}
 
 //CYAN FOR SLEEPING
-int ft_philo_sleep(t_data *data, t_philo *philo)
+void ft_philo_sleep(t_data *data, t_philo *philo)
 {
 	ft_set_philo_state(philo, SLEEPING);
     if (ft_get_philo_state(philo) == DEAD)
         return (1);
     ft_print_philo_state(philo, SLEEPING, CYAN);
     ft_usleep(ft_get_sleep_time(data));
-    return (0);
 }
 //GREEN FOR THINKING
-int ft_philo_think(t_philo *philo)
+void ft_philo_think(t_philo *philo)
 {
     ft_set_philo_state(philo, THINKING);
     if (ft_get_philo_state(philo) == DEAD)
-        return (1);
+        return ;
     ft_print_philo_state(philo, THINKING, GREEN);
-    return (0);
 }

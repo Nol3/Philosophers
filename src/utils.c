@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:24 by alcarden          #+#    #+#             */
-/*   Updated: 2024/07/09 13:39:32 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:46:05 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,13 @@ void	ft_error_exit(const char *error)
 	exit(EXIT_FAILURE);
 }
 
-// void ft_print_philo_state(t_philo *philo, t_state state, char *color)
-// {
-//     long time;
-
-//     time = ft_start_time();
-//     printf("%s%ld %d is %d\033[0m\n", color, time, philo->id, state);
-// }
-void ft_print_philo_state2(t_philo *philo, t_state state, char *color)
+void ft_print_philo_state2(t_philo *philo, int id, t_state state, char *color)
 {
 	long time;
 
 	time = ft_start_time();
 	pthread_mutex_lock(&(philo->mut_last_eat_time));
-	printf("%s%ld %d is %d\033[0m\n", color, time, philo->id, state);
+	printf("%s%ld %d is %d\033[0m\n", color, time, id, state);
 	pthread_mutex_unlock(&(philo->mut_last_eat_time));
 }
 

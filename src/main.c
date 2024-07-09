@@ -6,13 +6,13 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 18:33:26 by alcarden          #+#    #+#             */
-/*   Updated: 2024/07/09 14:32:12 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/09 17:25:03 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mesa.h"
+#include "philo.h"
 
-//./mesa 5 800 200 200 [5] (example)
+//./philo 5 die 800 eat 200 sleep 200 [5] (example)
 
 int	main(int argc, char *argv[])
 {
@@ -23,14 +23,30 @@ int	main(int argc, char *argv[])
 	{
 		ft_parse_args(data, argc, argv);
 		data = init_data(data->nb_philos, data);
+		ft_chek_one_philo(data);
 		ft_create_therads(data);
 		ft_monitor_checker(data);
-		//ft_dinner_check(data);
 		ft_free_data(data);
 	}
 	else
 		ft_error_exit("Error: wrong input arguments\n");
 	return (0);
+}
+
+void ft_one_philo(t_philo *mesa) 
+{
+	print_status(mesa->data, mesa->id, 'f');
+	ft_philo_eat(mesa->data, mesa);
+	ft_philo_sleep(mesa->data, mesa);
+	ft_philo_think(mesa);
+}
+
+void ft_chek_one_philo(t_philo *data)
+{
+	if (data->nb_philos == 1 || data->nb_meals == 0) 
+	{
+    	ft_one_philo(mesa);
+  	}
 }
 
 int	ft_create_threads(t_data *data)
@@ -57,7 +73,7 @@ int	ft_create_threads(t_data *data)
       		ft_error_exit("Error joining philosopher thread\n");
     	}
 	}
-	return (0); // Success
+	return (0);
 }
 
 void	ft_monitor_checker(t_data *data)
@@ -77,26 +93,17 @@ void	ft_monitor_checker(t_data *data)
 	}
 }
 
-// void	ft_dinner_check(t_data *data)
-// {
-// 	if (data->nb_meals == 0)
-// 		ft_error_exit("Error: Number of meals incorrect.\n");
-// 	else if (data->nb_philos == 1)
-// 	{
-// 		//Condición específica cuando solo hay un filósofo
-// 	}
-// }
-
-void *ft_philo(void *param) {
+void *ft_philo(void *param) 
+{
   t_philo *mesa;
 
   mesa = (t_philo *)param;
 
-  // Initial meal time (assuming get_time() returns milliseconds)
+  
   mesa->last_eat_time = get_time() - mesa->data->start_time;
 
-  if (mesa->data->nb_philos == 1 || mesa->data->nb_meals == 0) {
-    // Handle single philosopher or no limit on meals
+  if (mesa->data->nb_philos == 1 || mesa->data->nb_meals == 0) 
+  {
     one_philo(mesa);
   } else {
     // Loop for philosopher actions (thinking, eating, sleeping)
@@ -141,18 +148,6 @@ void *ft_philo(void *param) {
   // Philosopher is done, release resources (replace with your drop_f implementation)
   drop_f(mesa);
   return (NULL);
-}
-
-void one_philo(t_philo *mesa) 
-{
-  if (mesa->data->nb_meals == 0)
-	return;
-  else 
-  {
-	pthread_mutex_lock(mesa->left_f);
-	print_status(mesa->data, mesa->id, 'f');
-	pthread_mutex_unlock(mesa->left_f);
-  }
 }
 
 void	print_status(t_philo *mesa, int index, char s)

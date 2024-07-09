@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 23:58:10 by alcarden          #+#    #+#             */
-/*   Updated: 2024/07/09 14:34:59 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/09 17:22:44 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ void 					ft_print_philo_state(t_philo *philo,
 							t_state state, char *color);
 
 //main.c
+void 					ft_one_philo(t_philo *philo);
 int						ft_create_threads(t_data *data);
 void					ft_monitor_checker(t_data *data);
 void					ft_dinner_check(t_data *data);
