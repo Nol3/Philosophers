@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 23:58:10 by alcarden          #+#    #+#             */
-/*   Updated: 2024/07/09 17:22:44 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:48:53 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,16 +147,15 @@ void 					ft_print_philo_state(t_philo *philo,
 
 //main.c
 void 					ft_one_philo(t_philo *philo);
+void 					ft_check_one_philo(t_philo *philo);
 int						ft_create_threads(t_data *data);
 void					ft_monitor_checker(t_data *data);
-void					ft_dinner_check(t_data *data);
-void					ft_philo(t_philo *philo);
+void					ft_philo(void *param);
+void 					print_status(t_philo *mesa, int index, char s);
+char					*select_s(char s);
 
 // parse.c
 int						ft_isdigit(int c);
-//bool					ft_isspace(char c);
-//const char			*ft_valid_args(const char *str);
-//long					ft_atol(const char *str);
 void					ft_parse_args(t_data *t_data, int argc, char *argv[]);
 
 // init.c

@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 18:33:26 by alcarden          #+#    #+#             */
-/*   Updated: 2024/07/09 17:25:03 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:46:21 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ int	main(int argc, char *argv[])
 	return (0);
 }
 
+//No se puede usar exit en este proyecto.
 void ft_one_philo(t_philo *mesa) 
 {
 	print_status(mesa->data, mesa->id, 'f');
-	ft_philo_eat(mesa->data, mesa);
-	ft_philo_sleep(mesa->data, mesa);
-	ft_philo_think(mesa);
+	ft_usleep(mesa->data->die_time);
+	print_status(mesa->data, mesa->id, 'd');
 }
 
 void ft_chek_one_philo(t_philo *data)
@@ -95,56 +95,45 @@ void	ft_monitor_checker(t_data *data)
 
 void *ft_philo(void *param) 
 {
-  t_philo *mesa;
+	t_philo *mesa;
 
-  mesa = (t_philo *)param;
+	mesa = (t_philo *)param;
 
-  
-  mesa->last_eat_time = get_time() - mesa->data->start_time;
-
-  if (mesa->data->nb_philos == 1 || mesa->data->nb_meals == 0) 
-  {
-    one_philo(mesa);
-  } else {
-    // Loop for philosopher actions (thinking, eating, sleeping)
-    while (1) {
-      // Check if simulation is over
+	mesa->last_eat_time = get_time() - mesa->data->start_time;
+    while (1) 
+	{
       pthread_mutex_lock(&mesa->data->mut_keep_iter);
-      if (!mesa->data->keep_iterating) {
+      if (!mesa->data->keep_iterating) 
+	  {
         pthread_mutex_unlock(&mesa->data->mut_keep_iter);
         break;
       }
       pthread_mutex_unlock(&mesa->data->mut_keep_iter);
-
       // Philosopher might think for a while
       ft_usleep(rand() % (mesa->data->think_time));
-
       // Try to pick up forks (replace with your pick_f implementation)
       pick_f(mesa);
-
       // Check if philosopher starved while waiting for forks
-      if (has_starved(mesa)) {
+      if (has_starved(mesa)) 
+	  {
         print_status(mesa->data, mesa->id, 'd');
         pthread_mutex_lock(&mesa->data->mut_keep_iter);
         mesa->data->keep_iterating = false; // Stop simulation
         pthread_mutex_unlock(&mesa->data->mut_keep_iter);
         break;
       }
-
       // Eat if forks are acquired
       mufasa(mesa);
-
       // Check if philosopher has eaten the required number of meals
       pthread_mutex_lock(&mesa->mut_nb_meals_had);
-      if (mesa->data->nb_meals > 0 && mesa->nb_meals_had >= mesa->data->nb_meals) {
+      if (mesa->data->nb_meals > 0 && mesa->nb_meals_had >= mesa->data->nb_meals) 
+	  {
         mesa->data->nb_full_p++; // Increment number of full philosophers
         pthread_mutex_unlock(&mesa->mut_nb_meals_had);
         break;
       }
       pthread_mutex_unlock(&mesa->mut_nb_meals_had);
     }
-  }
-
   // Philosopher is done, release resources (replace with your drop_f implementation)
   drop_f(mesa);
   return (NULL);
