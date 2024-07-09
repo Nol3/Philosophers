@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 23:58:10 by alcarden          #+#    #+#             */
-/*   Updated: 2024/07/09 14:29:40 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:34:59 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 # include <signal.h>
+# include <sys/types.h>
 
 # define GREEN "\033[0;32m"
 # define YELLOW "\033[0;33m"
