@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 18:33:26 by alcarden          #+#    #+#             */
-/*   Updated: 2024/07/10 20:37:36 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/10 22:24:37 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	main(int argc, char *argv[])
 		else
 		{
 			ft_create_threads(data);
-			ft_monitor_checker(data);
 		}
 		ft_free_data(data);
 	}
@@ -59,6 +58,7 @@ int	ft_create_threads(t_data *data)
     	}
   	}
 	i = -1;
+	ft_monitor_checker(data);
   	while (++i < data->nb_philos) 
 	{
     	if (pthread_join(data->philo_ths[i], NULL) != 0) 
@@ -88,7 +88,6 @@ void	ft_monitor_checker(t_data *data)
 			ft_set_keep_iter(data, false);
 			break ;
 		}
-		ft_usleep(1000);
 	}
 }
 

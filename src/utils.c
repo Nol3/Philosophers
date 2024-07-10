@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:24 by alcarden          #+#    #+#             */
-/*   Updated: 2024/07/10 20:33:40 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/10 21:10:13 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ void ft_free_data(t_data *data)
 		pthread_mutex_destroy(&(data->philo[i].mut_state));
 		pthread_mutex_destroy(&(data->philo[i].mut_nb_meals_had));
 		pthread_mutex_destroy(&(data->philo[i].mut_last_eat_time));
-		pthread_mutex_destroy(data->philo[i].left_f);
-		pthread_mutex_destroy(data->philo[i].right_f);
+		pthread_mutex_destroy(&data->forks[i]);
 	}
 	pthread_mutex_destroy(&(data->mut_eat_t));
 	pthread_mutex_destroy(&(data->mut_die_t));
@@ -70,16 +69,5 @@ void ft_free_data(t_data *data)
 	free(data->philo_ths);
 	free(data->forks);
 	free(data->philo);
-	//ft_free_philo(data->philo);
 	free(data);
 }
-// cargarme esta funcion cuando mire leaks
-// void ft_free_philo(t_philo *philo)
-// {
-// 	pthread_mutex_destroy(&(philo->mut_state));
-// 	pthread_mutex_destroy(&(philo->mut_nb_meals_had));
-// 	pthread_mutex_destroy(&(philo->mut_last_eat_time));
-// 	pthread_mutex_destroy(philo->left_f);
-// 	pthread_mutex_destroy(philo->right_f);
-// 	free(philo);
-// }

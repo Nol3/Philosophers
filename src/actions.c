@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:10:12 by alcarden          #+#    #+#             */
-/*   Updated: 2024/07/10 19:48:53 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/10 21:45:03 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,14 @@ void ft_update_nb_meals(t_philo *philo)
 //MAGENTA FOR EATING
 void ft_philo_eat(t_philo *philo)
 {
+    if (!ft_get_keep_iter(philo->data))
+		return ;
     ft_set_philo_state(philo, EATING);
     if (ft_get_philo_state(philo) == DEAD)
         return ;
     ft_take_fork(philo);
+    if (!ft_get_keep_iter(philo->data))
+		return ;
     print_status(philo, philo->id, 'e');
     ft_update_last_meal_time(philo);
     ft_usleep(philo->data->eat_time);
@@ -45,6 +49,8 @@ void ft_philo_eat(t_philo *philo)
 //CYAN FOR SLEEPING
 void ft_philo_sleep(t_philo *philo)
 {
+    if (!ft_get_keep_iter(philo->data))
+		return ;
 	ft_set_philo_state(philo, SLEEPING);
     if (ft_get_philo_state(philo) == DEAD)
         return ;
@@ -56,6 +62,8 @@ void ft_philo_think(t_philo *philo)
 {
     int time_think;
 
+    if (!ft_get_keep_iter(philo->data))
+		return ;
     if (philo->data->nb_philos % 2 == 0)
         time_think = philo->data->eat_time - philo->data->sleep_time;
     else

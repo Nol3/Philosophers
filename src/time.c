@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:35:47 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/20 18:33:39 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/10 22:12:42 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_usleep(long time)
 
 	start_time = ft_start_time();
 	while (ft_start_time() - start_time < time)
-		usleep(100);
+		usleep(1);
 	return (0);
 }
 

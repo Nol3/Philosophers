@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:54:59 by alcarden          #+#    #+#             */
-/*   Updated: 2024/07/10 20:32:57 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/10 21:27:30 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_philo	init_philo(int id, t_data *data)
 	ft_safe_mutex_handle(&(philo.mut_nb_meals_had), INIT);
 	ft_safe_mutex_handle(&(philo.mut_last_eat_time), INIT);
 	update_last_meal_time(&philo);
-	philo.last_eat_time = 0;
 	return (philo);
 }
 
