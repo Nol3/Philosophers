@@ -6,13 +6,13 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:23:20 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/20 18:47:24 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/10 19:49:41 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void 	ft_set_keep_iter(t_data *data, int value)
+void 	ft_set_keep_iter(t_data *data, bool value)
 {
 	pthread_mutex_lock(&(data->mut_keep_iter));
 	data->keep_iterating = value;

@@ -6,31 +6,28 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:54:59 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/20 19:11:40 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:32:57 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_philo	*init_philo(int id, t_data *data)
+t_philo	init_philo(int id, t_data *data)
 {
-	t_philo	*philo;
+	t_philo	philo;
 
-	philo = (t_philo *)ft_safe_malloc(sizeof(t_philo));
-	philo->id = id;
-	philo->nb_meals_had = 0;
-	philo->is_alive = 1;
-	philo->data = data;
-	philo->state = IDLE;
-	philo->left_f = &(data->forks[id]);
-	philo->right_f = &(data->forks[(id + 1) % data->nb_philos]);
-	ft_safe_mutex_handle(&(philo->mut_state), INIT);
-	ft_safe_mutex_handle(&(philo->mut_nb_meals_had), INIT);
-	ft_safe_mutex_handle(&(philo->mut_last_eat_time), INIT);
-	update_last_meal_time(philo);
-	philo->last_eat_time = 0;
-
-	printf("Philo %d: left_f = %p, right_f = %p\n", id, (void*)philo->left_f, (void*)philo->right_f);
+	philo.id = id;
+	philo.nb_meals_had = 0;
+	philo.is_alive = 1;
+	philo.data = data;
+	philo.state = IDLE;
+	philo.left_f = &(data->forks[id]);
+	philo.right_f = &(data->forks[(id + 1) % data->nb_philos]);
+	ft_safe_mutex_handle(&(philo.mut_state), INIT);
+	ft_safe_mutex_handle(&(philo.mut_nb_meals_had), INIT);
+	ft_safe_mutex_handle(&(philo.mut_last_eat_time), INIT);
+	update_last_meal_time(&philo);
+	philo.last_eat_time = 0;
 	return (philo);
 }
 
@@ -50,11 +47,11 @@ t_data	*init_data(int nb_philos, t_data *data)
 	ft_safe_mutex_handle(&(data->mut_start_time), INIT);
 	data->philo_ths = ft_safe_malloc(nb_philos * sizeof(pthread_t));
 	data->forks = ft_safe_malloc(nb_philos * sizeof(pthread_mutex_t));
-	data->philos = ft_safe_malloc(nb_philos * sizeof(t_philo));
+	data->philo = ft_safe_malloc(nb_philos * sizeof(t_philo));
 	while (++i < data->nb_philos)
 	{
 		ft_safe_mutex_handle(&(data->forks[i]), INIT);
-		data->philos[i] = *init_philo(i, data);
+		data->philo[i] = init_philo(i, data);
 	}
 	return (data);
 }

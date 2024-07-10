@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:24 by alcarden          #+#    #+#             */
-/*   Updated: 2024/07/09 15:46:05 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:33:40 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,47 @@ void	ft_error_exit(const char *error)
 	exit(EXIT_FAILURE);
 }
 
-void ft_print_philo_state2(t_philo *philo, int id, t_state state, char *color)
-{
-	long time;
+void	print_status(t_philo *philo, int index, char s)
+{	
+	pthread_mutex_lock(&philo->data->mut_keep_iter);
+	pthread_mutex_lock(&philo->data->mut_print);
+	if (philo->data->keep_iterating)
+	{
+		printf("%lu %i %s\n", ft_start_time() - philo->data->start_time, index, select_s(s));
+		if (s == 'd')
+			philo->data->keep_iterating = false;
+	}
+	pthread_mutex_unlock(&philo->data->mut_print);
+	pthread_mutex_unlock(&philo->data->mut_keep_iter);
+}
 
-	time = ft_start_time();
-	pthread_mutex_lock(&(philo->mut_last_eat_time));
-	printf("%s%ld %d is %d\033[0m\n", color, time, id, state);
-	pthread_mutex_unlock(&(philo->mut_last_eat_time));
+char	*select_s(char s)
+{
+	if (s == 'f')
+		return ("has taken a fork");
+	else if (s == 'e')
+		return ("is eating");
+	else if (s == 's')
+		return ("is sleeping");
+	else if (s == 't')
+		return ("is thinking");
+	else if (s == 'd')
+		return ("died");
+	return (NULL);
 }
 
 void ft_free_data(t_data *data)
 {
 	int i;
-	int nb_philos;
 
 	i = -1;
-	nb_philos = ft_get_nb_philos(data);
-	while (++i < nb_philos)
+	while (++i < data->nb_philos)
 	{
-		pthread_mutex_destroy(&(data->philos[i].mut_state));
-		pthread_mutex_destroy(&(data->philos[i].mut_nb_meals_had));
-		pthread_mutex_destroy(&(data->philos[i].mut_last_eat_time));
-		pthread_mutex_destroy(data->philos[i].left_f);
-		pthread_mutex_destroy(data->philos[i].right_f);
+		pthread_mutex_destroy(&(data->philo[i].mut_state));
+		pthread_mutex_destroy(&(data->philo[i].mut_nb_meals_had));
+		pthread_mutex_destroy(&(data->philo[i].mut_last_eat_time));
+		pthread_mutex_destroy(data->philo[i].left_f);
+		pthread_mutex_destroy(data->philo[i].right_f);
 	}
 	pthread_mutex_destroy(&(data->mut_eat_t));
 	pthread_mutex_destroy(&(data->mut_die_t));
@@ -52,17 +69,17 @@ void ft_free_data(t_data *data)
 	pthread_mutex_destroy(&(data->mut_start_time));
 	free(data->philo_ths);
 	free(data->forks);
-	free(data->philos);
-	ft_free_philo(data->philos);
+	free(data->philo);
+	//ft_free_philo(data->philo);
 	free(data);
 }
-
-void ft_free_philo(t_philo *philo)
-{
-	pthread_mutex_destroy(&(philo->mut_state));
-	pthread_mutex_destroy(&(philo->mut_nb_meals_had));
-	pthread_mutex_destroy(&(philo->mut_last_eat_time));
-	pthread_mutex_destroy(philo->left_f);
-	pthread_mutex_destroy(philo->right_f);
-	free(philo);
-}
+// cargarme esta funcion cuando mire leaks
+// void ft_free_philo(t_philo *philo)
+// {
+// 	pthread_mutex_destroy(&(philo->mut_state));
+// 	pthread_mutex_destroy(&(philo->mut_nb_meals_had));
+// 	pthread_mutex_destroy(&(philo->mut_last_eat_time));
+// 	pthread_mutex_destroy(philo->left_f);
+// 	pthread_mutex_destroy(philo->right_f);
+// 	free(philo);
+// }

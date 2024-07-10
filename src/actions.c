@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:10:12 by alcarden          #+#    #+#             */
-/*   Updated: 2024/07/09 17:15:39 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/10 19:48:53 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,31 +29,41 @@ void ft_update_nb_meals(t_philo *philo)
 }
 
 //MAGENTA FOR EATING
-void ft_philo_eat(t_data *data, t_philo *philo)
+void ft_philo_eat(t_philo *philo)
 {
     ft_set_philo_state(philo, EATING);
     if (ft_get_philo_state(philo) == DEAD)
         return ;
-    ft_print_philo_state(philo, EATING, MAGENTA);
+    ft_take_fork(philo);
+    print_status(philo, philo->id, 'e');
     ft_update_last_meal_time(philo);
-    ft_usleep(ft_get_eat_time(data));
+    ft_usleep(philo->data->eat_time);
+    ft_drop_fork(philo);
     ft_update_nb_meals(philo);
 }
 
 //CYAN FOR SLEEPING
-void ft_philo_sleep(t_data *data, t_philo *philo)
+void ft_philo_sleep(t_philo *philo)
 {
 	ft_set_philo_state(philo, SLEEPING);
     if (ft_get_philo_state(philo) == DEAD)
-        return (1);
-    ft_print_philo_state(philo, SLEEPING, CYAN);
-    ft_usleep(ft_get_sleep_time(data));
+        return ;
+    print_status(philo, philo->id, 's');
+    ft_usleep(philo->data->sleep_time);
 }
 //GREEN FOR THINKING
 void ft_philo_think(t_philo *philo)
 {
+    int time_think;
+
+    if (philo->data->nb_philos % 2 == 0)
+        time_think = philo->data->eat_time - philo->data->sleep_time;
+    else
+        time_think = philo->data->eat_time * 2 - philo->data->sleep_time;
+    if (time_think <= 0)
+        return ;
     ft_set_philo_state(philo, THINKING);
     if (ft_get_philo_state(philo) == DEAD)
         return ;
-    ft_print_philo_state(philo, THINKING, GREEN);
+    print_status(philo, philo->id, 't');
 }

@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 23:58:10 by alcarden          #+#    #+#             */
-/*   Updated: 2024/07/09 19:48:53 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:33:11 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,6 @@ typedef struct s_data
 	pthread_mutex_t		mut_die_t;
 	pthread_mutex_t		mut_sleep_t;
 	pthread_mutex_t		mut_print;
-	pthread_mutex_t 	mut_life;
-	//init
 	pthread_mutex_t		mut_nb_philos;
 	pthread_mutex_t		mut_keep_iter;
 	pthread_mutex_t		mut_start_time;
@@ -97,25 +95,25 @@ typedef struct s_data
 	pthread_t			check_all_full;
 	pthread_t			*philo_ths;
 	pthread_mutex_t		*forks;
-	t_philo				*philos;
+	t_philo				*philo;
 }						t_data;
 
 // PROTOTYPES
 
 //forks.c
-void					ft_take_fork(t_philo philo);
-void					ft_drop_fork(t_philo philo);
+void					ft_take_fork(t_philo *philo);
+void					ft_drop_fork(t_philo *philo);
 
 //set.c
-void					ft_set_keep_iter(t_data *data, int value);
+void					ft_set_keep_iter(t_data *data, bool value);
 void 					ft_set_philo_state(t_philo *philo, t_state state);
 
 // actions.c
 void 					ft_update_last_meal_time(t_philo *philo);
 void 					ft_update_nb_meals(t_philo *philo);
-int						ft_philo_think(t_philo *philo);
-void					ft_philo_eat(t_data *data, t_philo *philo);
-int						ft_philo_sleep(t_data *data, t_philo *philo);
+void					ft_philo_think(t_philo *philo);
+void					ft_philo_eat(t_philo *philo);
+void					ft_philo_sleep(t_philo *philo);
 
 // gets.c  *organizar, hay más de 5*
 int 					ft_get_sleep_time(t_data *data);
@@ -135,7 +133,6 @@ int						ft_usleep(long time);
 long					ft_current_time(long start_time);
 
 // gets.c
-int						ft_get_nb_philos(t_data *data);
 int						ft_get_eat_time(t_data *data);
 
 // utils.c
@@ -144,22 +141,22 @@ void					ft_free_data(t_data *data);
 void					ft_free_philo(t_philo *philo);
 void 					ft_print_philo_state(t_philo *philo,
 							t_state state, char *color);
+void 					print_status(t_philo *philo, int index, char s);
+char					*select_s(char s);
+
 
 //main.c
-void 					ft_one_philo(t_philo *philo);
-void 					ft_check_one_philo(t_philo *philo);
+void 					ft_one_philo(t_data *data);
 int						ft_create_threads(t_data *data);
 void					ft_monitor_checker(t_data *data);
-void					ft_philo(void *param);
-void 					print_status(t_philo *mesa, int index, char s);
-char					*select_s(char s);
+void					*ft_philo(void *param);
 
 // parse.c
 int						ft_isdigit(int c);
-void					ft_parse_args(t_data *t_data, int argc, char *argv[]);
+t_data					*ft_parse_args(t_data *t_data, int argc, char *argv[]);
 
 // init.c
-t_philo					*init_philo(int id, t_data *data);
+t_philo					init_philo(int id, t_data *data);
 t_data					*init_data(int nb_philos, t_data *data);
 void					update_last_meal_time(t_philo *philo);
 

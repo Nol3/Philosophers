@@ -1,5 +1,5 @@
 NAME = philo
-FLAGS = -Wall -Werror -Wextra -pthread
+FLAGS = -Wall -Werror -Wextra -g
 FILES = $(shell find src -type f -name "*.c")
 OBJS = $(FILES:.c=.o)
 DATE = $(shell /usr/bin/date)

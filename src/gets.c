@@ -6,21 +6,11 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:23:26 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/29 15:02:27 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/10 18:48:11 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int	ft_get_nb_philos(t_data *data)
-{
-	int	nb_philos;
-
-	pthread_mutex_lock(&(data->mut_nb_philos));
-	nb_philos = data->nb_philos;
-	pthread_mutex_unlock(&(data->mut_nb_philos));
-	return (nb_philos);
-}
 
 int ft_get_sleep_time(t_data *data)
 {

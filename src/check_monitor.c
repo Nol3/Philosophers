@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:42:21 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/20 18:35:19 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:40:31 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 int	ft_check_full(t_data *data)
 {
 	int	i;
-	int	number_of_philos;
 
 	i = 0;
-	number_of_philos = ft_get_nb_philos(data);
-	while (i < number_of_philos)
+	while (i < data->nb_philos)
 	{
-		if (data->philos[i].nb_meals_had < data->nb_meals)
+		if (data->philo[i].nb_meals_had < data->nb_meals)
 			return (0);
 		i++;
 	}
@@ -31,15 +29,14 @@ int	ft_check_full(t_data *data)
 int	ft_check_alive(t_data *data)
 {
 	int	i;
-	int	number_of_philos;
 
 	i = -1;
-	number_of_philos = ft_get_nb_philos(data);
-	while (++i < number_of_philos)
+	while (++i < data->nb_philos)
 	{
-		if (ft_start_time() - data->philos[i].last_eat_time > data->die_time)
+		if (ft_start_time() - data->philo[i].last_eat_time > data->die_time)
 		{
-			ft_set_philo_state(&data->philos[i], DEAD);
+			ft_set_philo_state(&data->philo[i], DEAD);
+			ft_set_keep_iter(data, false);
 			return (1);
 		}
 	}

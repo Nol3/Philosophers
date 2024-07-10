@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcarden <alcarden@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:16:18 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/20 20:38:02 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:02:54 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static long	ft_atol(const char *str)
 	return (num);
 }
 
-void	ft_parse_args(t_data *data, int argc, char *argv[])
+t_data	*ft_parse_args(t_data *data, int argc, char *argv[])
 {
 	data = (t_data *)ft_safe_malloc(sizeof(t_data));
 	data->nb_full_p = 0;
@@ -77,10 +77,11 @@ void	ft_parse_args(t_data *data, int argc, char *argv[])
 		data->nb_meals = ft_atol(argv[5]);
 	else
 		data->nb_meals = -1;
-	if (data->nb_philos < 2 || data->nb_philos > 200)
+	if (data->nb_philos < 1 || data->nb_philos > 200)
 		ft_error_exit("Error: wrong input, number of philos\n");
 	if (data->eat_time < 60 || data->sleep_time < 60)
 		ft_error_exit("Error: wrong input, time too short\n");
-	if (data->nb_meals < 1)
+	if (data->nb_meals < 1 && argc == 6)
 		ft_error_exit("Error: wrong input, number of meals\n");
+	return (data);
 }

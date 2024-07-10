@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 18:33:26 by alcarden          #+#    #+#             */
-/*   Updated: 2024/07/09 19:46:21 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:37:36 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,15 @@ int	main(int argc, char *argv[])
 	data = NULL;
 	if (5 == argc || 6 == argc)
 	{
-		ft_parse_args(data, argc, argv);
+		data = ft_parse_args(data, argc, argv);
 		data = init_data(data->nb_philos, data);
-		ft_chek_one_philo(data);
-		ft_create_therads(data);
-		ft_monitor_checker(data);
+		if(data->nb_philos == 1)
+			ft_one_philo(data);
+		else
+		{
+			ft_create_threads(data);
+			ft_monitor_checker(data);
+		}
 		ft_free_data(data);
 	}
 	else
@@ -33,40 +37,29 @@ int	main(int argc, char *argv[])
 	return (0);
 }
 
-//No se puede usar exit en este proyecto.
-void ft_one_philo(t_philo *mesa) 
+void ft_one_philo(t_data *data) 
 {
-	print_status(mesa->data, mesa->id, 'f');
-	ft_usleep(mesa->data->die_time);
-	print_status(mesa->data, mesa->id, 'd');
-}
-
-void ft_chek_one_philo(t_philo *data)
-{
-	if (data->nb_philos == 1 || data->nb_meals == 0) 
-	{
-    	ft_one_philo(mesa);
-  	}
+	data->start_time = ft_start_time();
+	print_status(&data->philo[0], data->philo->id, 'f');
+	ft_usleep(data->die_time);
+	print_status(&data->philo[0], data->philo->id, 'd');
 }
 
 int	ft_create_threads(t_data *data)
 {
 	int	i;
-	int	number_of_philos;
 
 	i = -1;
-	number_of_philos = ft_get_nb_philos(data);
 	data->start_time = ft_start_time();
-	while (++i < number_of_philos) 
+	while (++i < data->nb_philos) 
 	{
-    	if (pthread_create(data->philo_ths[i], NULL, ft_philo, &data->philos[i]) != 0) 
+    	if (pthread_create(&data->philo_ths[i], NULL, ft_philo, &data->philo[i]) != 0) 
 		{
      		ft_error_exit("Error creating philosopher thread\n");
     	}
-		printf("Philosopher %d thread created\n", i + 1);
   	}
 	i = -1;
-  	while (++i < number_of_philos) 
+  	while (++i < data->nb_philos) 
 	{
     	if (pthread_join(data->philo_ths[i], NULL) != 0) 
 		{
@@ -85,86 +78,34 @@ void	ft_monitor_checker(t_data *data)
 	{
 		exit = ft_check_full(data);
 		if (exit == 1)
+		{
+			ft_set_keep_iter(data, false);
 			break ;
+		}
 		exit = ft_check_alive(data);
 		if (exit == 1)
+		{
+			ft_set_keep_iter(data, false);
 			break ;
+		}
 		ft_usleep(1000);
 	}
 }
 
 void *ft_philo(void *param) 
 {
-	t_philo *mesa;
+	t_philo *philo;
 
-	mesa = (t_philo *)param;
+	philo = (t_philo *)param;
 
-	mesa->last_eat_time = get_time() - mesa->data->start_time;
-    while (1) 
+	while (1)
 	{
-      pthread_mutex_lock(&mesa->data->mut_keep_iter);
-      if (!mesa->data->keep_iterating) 
-	  {
-        pthread_mutex_unlock(&mesa->data->mut_keep_iter);
-        break;
-      }
-      pthread_mutex_unlock(&mesa->data->mut_keep_iter);
-      // Philosopher might think for a while
-      ft_usleep(rand() % (mesa->data->think_time));
-      // Try to pick up forks (replace with your pick_f implementation)
-      pick_f(mesa);
-      // Check if philosopher starved while waiting for forks
-      if (has_starved(mesa)) 
-	  {
-        print_status(mesa->data, mesa->id, 'd');
-        pthread_mutex_lock(&mesa->data->mut_keep_iter);
-        mesa->data->keep_iterating = false; // Stop simulation
-        pthread_mutex_unlock(&mesa->data->mut_keep_iter);
-        break;
-      }
-      // Eat if forks are acquired
-      mufasa(mesa);
-      // Check if philosopher has eaten the required number of meals
-      pthread_mutex_lock(&mesa->mut_nb_meals_had);
-      if (mesa->data->nb_meals > 0 && mesa->nb_meals_had >= mesa->data->nb_meals) 
-	  {
-        mesa->data->nb_full_p++; // Increment number of full philosophers
-        pthread_mutex_unlock(&mesa->mut_nb_meals_had);
-        break;
-      }
-      pthread_mutex_unlock(&mesa->mut_nb_meals_had);
-    }
-  // Philosopher is done, release resources (replace with your drop_f implementation)
-  drop_f(mesa);
-  return (NULL);
-}
-
-void	print_status(t_philo *mesa, int index, char s)
-{
-	pthread_mutex_lock(mesa->data->mut_print);
-	pthread_mutex_lock(mesa->data->mut_life);
-	if (mesa->vivos)
-	{
-		printf("%ld %i %s\n", get_time() - mesa->t_start, index, select_s(s));
-		if (s == 'd')
-			mesa->data->keep_iterating = false;
+		if (!ft_get_keep_iter(philo->data)
+			|| philo->nb_meals_had == philo->data->nb_meals)
+			return (NULL);
+		ft_philo_eat(philo);
+		ft_philo_sleep(philo);
+		ft_philo_think(philo);
 	}
-	pthread_mutex_unlock(mesa->date->mut_life);
-	pthread_mutex_unlock(mesa->date->mut_print);
-}
-
-char	*select_s(char s)
-{
-	if (s == 'f')
-		return ("has taken a fork");
-	else if (s == 'e')
-		return ("is eating");
-	else if (s == 's')
-		return ("is sleeping");
-	else if (s == 't')
-		return ("is thinking");
-	else if (s == 'd')
-		return ("died");
 	return (NULL);
 }
-
