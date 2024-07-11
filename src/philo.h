@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 23:58:10 by alcarden          #+#    #+#             */
-/*   Updated: 2024/07/10 22:24:18 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:06:12 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,16 @@
 # include <inttypes.h>
 # include <limits.h>
 # include <pthread.h>
+# include <signal.h>
 # include <stdbool.h>
 # include <stdint.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/time.h>
+# include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include <signal.h>
-# include <sys/types.h>
-
-# define GREEN "\033[0;32m"
-# define YELLOW "\033[0;33m"
-# define BLUE "\033[0;34m"
-# define MAGENTA "\033[0;35m"
-# define CYAN "\033[0;36m"
 
 // STRUCTS
 
@@ -46,7 +40,7 @@ typedef enum e_philo_state
 	DEAD,
 	FULL,
 	IDLE,
-}	t_state;
+}						t_state;
 
 typedef enum e_opcode
 {
@@ -100,53 +94,32 @@ typedef struct s_data
 
 // PROTOTYPES
 
-//forks.c
-void					ft_take_fork(t_philo *philo);
-void					ft_drop_fork(t_philo *philo);
-
-//set.c
-void					ft_set_keep_iter(t_data *data, bool value);
-void 					ft_set_philo_state(t_philo *philo, t_state state);
-
 // actions.c
-void 					ft_update_last_meal_time(t_philo *philo);
-void 					ft_update_nb_meals(t_philo *philo);
-void					ft_philo_think(t_philo *philo);
+void					ft_update_last_meal_time(t_philo *philo);
+void					ft_update_nb_meals(t_philo *philo);
 void					ft_philo_eat(t_philo *philo);
 void					ft_philo_sleep(t_philo *philo);
-
-// gets.c  *organizar, hay más de 5*
-int 					ft_get_sleep_time(t_data *data);
-int						ft_get_nb_philos(t_data *data);
-int						ft_get_eat_time(t_data *data);
-int						ft_get_nb_meals_had(t_philo *philo);
-int						ft_get_philo_state(t_philo *philo);
-bool					ft_get_keep_iter(t_data *data);
+void					ft_philo_think(t_philo *philo);
 
 // check_monitor.c
 int						ft_check_full(t_data *data);
 int						ft_check_alive(t_data *data);
 
-// time.c
-long					ft_start_time(void);
-int						ft_usleep(long time);
-long					ft_current_time(long start_time);
+// forks.c
+void					ft_take_fork(t_philo *philo);
+void					ft_drop_fork(t_philo *philo);
 
 // gets.c
-int						ft_get_eat_time(t_data *data);
+int						ft_get_philo_state(t_philo *philo);
+bool					ft_get_keep_iter(t_data *data);
 
-// utils.c
-void					ft_error_exit(const char *error);
-void					ft_free_data(t_data *data);
-void					ft_free_philo(t_philo *philo);
-void 					ft_print_philo_state(t_philo *philo,
-							t_state state, char *color);
-void 					print_status(t_philo *philo, int index, char s);
-char					*select_s(char s);
+// init.c
+t_philo					ft_init_philo(int id, t_data *data);
+t_data					*ft_init_data(int nb_philos, t_data *data);
+void					ft_load_last_meal_time(t_philo *philo);
 
-
-//main.c
-void 					ft_one_philo(t_data *data);
+// main.c
+void					ft_one_philo(t_data *data);
 int						ft_create_threads(t_data *data);
 void					ft_monitor_checker(t_data *data);
 void					*ft_philo(void *param);
@@ -155,16 +128,27 @@ void					*ft_philo(void *param);
 int						ft_isdigit(int c);
 t_data					*ft_parse_args(t_data *t_data, int argc, char *argv[]);
 
-// init.c
-t_philo					init_philo(int id, t_data *data);
-t_data					*init_data(int nb_philos, t_data *data);
-void					update_last_meal_time(t_philo *philo);
-
 // safe_inits.c
 void					*ft_safe_malloc(size_t bytes);
 void					ft_safe_mutex(t_mtx *mutex, t_opcode opcode);
 void					ft_handle_thread_error(int status, t_opcode opcode);
 void					ft_safe_mutex_handle(t_mtx *mutex, t_opcode opcode);
-void					ft_safe_thread_handle(pthread_t *thread, void *(*foo)(void *),t_opcode opcode);
+void					ft_safe_thread_handle(pthread_t *thread,
+							void *(*foo)(void *), t_opcode opcode);
+
+// set.c
+void					ft_set_keep_iter(t_data *data, bool value);
+void					ft_set_philo_state(t_philo *philo, t_state state);
+
+// time.c
+long					ft_start_time(void);
+int						ft_usleep(long time);
+long					ft_current_time(long start_time);
+
+// utils.c
+void					ft_error_exit(const char *error);
+void					ft_print_status(t_philo *philo, int index, char s);
+char					*ft_select_s(char s);
+void					ft_free_data(t_data *data);
 
 #endif

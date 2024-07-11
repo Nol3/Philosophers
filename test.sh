@@ -15,3 +15,5 @@ gnome-terminal --geometry=40x20+360+600 -- bash -c "timeout 100 valgrind --tool=
 gnome-terminal --geometry=40x20+720+600 -- bash -c "timeout 100 valgrind --tool=helgrind ./philo 4 410 200 200 | tee /dev/tty"timeout 100 
 gnome-terminal --geometry=40x20+1080+600 -- bash -c "timeout 100 valgrind --tool=helgrind ./philo 4 310 200 100 | tee /dev/tty && sleep 2"timeout 100 
 #gnome-terminal --geometry=40x20+1420+600 -- bash -c "timeout 100 valgrind --tool=helgrind ./philo 200 120 60 60 | tee /dev/tty"timeout 100 
+
+# | grep "eating" | wc -l (Para saber cuantos filosofos comieron)

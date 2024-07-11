@@ -6,13 +6,13 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:54:59 by alcarden          #+#    #+#             */
-/*   Updated: 2024/07/10 21:27:30 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:39:23 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_philo	init_philo(int id, t_data *data)
+t_philo	ft_init_philo(int id, t_data *data)
 {
 	t_philo	philo;
 
@@ -26,11 +26,11 @@ t_philo	init_philo(int id, t_data *data)
 	ft_safe_mutex_handle(&(philo.mut_state), INIT);
 	ft_safe_mutex_handle(&(philo.mut_nb_meals_had), INIT);
 	ft_safe_mutex_handle(&(philo.mut_last_eat_time), INIT);
-	update_last_meal_time(&philo);
+	ft_update_last_meal_time(&philo);
 	return (philo);
 }
 
-t_data	*init_data(int nb_philos, t_data *data)
+t_data	*ft_init_data(int nb_philos, t_data *data)
 {
 	int		i;
 
@@ -50,12 +50,13 @@ t_data	*init_data(int nb_philos, t_data *data)
 	while (++i < data->nb_philos)
 	{
 		ft_safe_mutex_handle(&(data->forks[i]), INIT);
-		data->philo[i] = init_philo(i, data);
+		data->philo[i] = ft_init_philo(i, data);
 	}
 	return (data);
 }
 
-void	update_last_meal_time(t_philo *philo)
+void	ft_load_last_meal_time(t_philo *philo)
+
 {
 	ft_safe_mutex_handle(&(philo->mut_last_eat_time), LOCK);
 	philo->last_eat_time = ft_current_time(philo->data->start_time);

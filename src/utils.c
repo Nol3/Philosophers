@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:24 by alcarden          #+#    #+#             */
-/*   Updated: 2024/07/10 21:10:13 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:58:53 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@ void	ft_error_exit(const char *error)
 	exit(EXIT_FAILURE);
 }
 
-void	print_status(t_philo *philo, int index, char s)
-{	
+void	ft_print_status(t_philo *philo, int index, char s)
+{
 	pthread_mutex_lock(&philo->data->mut_keep_iter);
 	pthread_mutex_lock(&philo->data->mut_print);
 	if (philo->data->keep_iterating)
 	{
-		printf("%lu %i %s\n", ft_start_time() - philo->data->start_time, index, select_s(s));
+		printf("%lu %i %s\n", ft_start_time() - philo->data->start_time,
+			index, ft_select_s(s));
 		if (s == 'd')
 			philo->data->keep_iterating = false;
 	}
@@ -32,7 +33,7 @@ void	print_status(t_philo *philo, int index, char s)
 	pthread_mutex_unlock(&philo->data->mut_keep_iter);
 }
 
-char	*select_s(char s)
+char	*ft_select_s(char s)
 {
 	if (s == 'f')
 		return ("has taken a fork");
@@ -47,9 +48,9 @@ char	*select_s(char s)
 	return (NULL);
 }
 
-void ft_free_data(t_data *data)
+void	ft_free_data(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < data->nb_philos)

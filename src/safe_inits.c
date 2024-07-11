@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:13:23 by alcarden          #+#    #+#             */
-/*   Updated: 2024/06/20 18:42:05 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:18:12 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,13 @@ void	ft_handle_thread_error(int status, t_opcode opcode)
 	else if (EINVAL == status && (JOIN == opcode || DETACH == opcode))
 		ft_error_exit("The value specified by thread is not joinable\n");
 	else if (ESRCH == status)
-		ft_error_exit("No thread could be found corresponding to that"
-			"specified by the given thread ID, thread.");
+		ft_error_exit("No thread could be found corresponding to that");
 	else if (EDEADLK == status)
 		ft_error_exit("A deadlock was detected or the value of"
-			"thread specifies the calling thread.");
+			" thread specifies the calling thread\n");
 }
 
-void ft_safe_mutex_handle(t_mtx *mutex, t_opcode opcode)
+void	ft_safe_mutex_handle(t_mtx *mutex, t_opcode opcode)
 {
 	if (LOCK == opcode)
 		ft_handle_thread_error(pthread_mutex_lock(mutex), opcode);
@@ -79,10 +78,11 @@ void ft_safe_mutex_handle(t_mtx *mutex, t_opcode opcode)
 	else if (DESTROY == opcode)
 		ft_handle_thread_error(pthread_mutex_destroy(mutex), opcode);
 	else
-		ft_error_exit("Error: wrong opcode. it Need: \n LOCK, UNLOCK, INIT, DESTROY\n");
+		ft_error_exit("Error: it Need: \n LOCK, UNLOCK, INIT, DESTROY\n");
 }
 
-void	ft_safe_thread_handle(pthread_t *thread, void *(*foo)(void *), t_opcode opcode)
+void	ft_safe_thread_handle(pthread_t *thread, void *(*foo)(void *),
+		t_opcode opcode)
 {
 	if (CREATE == opcode)
 		ft_handle_thread_error(pthread_create(thread, NULL, foo, NULL), opcode);
@@ -91,5 +91,5 @@ void	ft_safe_thread_handle(pthread_t *thread, void *(*foo)(void *), t_opcode opc
 	else if (DETACH == opcode)
 		ft_handle_thread_error(pthread_detach(*thread), opcode);
 	else
-		ft_error_exit("Error: wrong opcode. it Need: \n CREATE, JOIN, DETACH\n");	
+		ft_error_exit("Error: it Need: \n CREATE, JOIN, DETACH\n");
 }

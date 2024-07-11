@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 18:33:26 by alcarden          #+#    #+#             */
-/*   Updated: 2024/07/10 22:24:37 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:25:25 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,11 @@ int	main(int argc, char *argv[])
 	if (5 == argc || 6 == argc)
 	{
 		data = ft_parse_args(data, argc, argv);
-		data = init_data(data->nb_philos, data);
-		if(data->nb_philos == 1)
+		data = ft_init_data(data->nb_philos, data);
+		if (data->nb_philos == 1)
 			ft_one_philo(data);
 		else
-		{
 			ft_create_threads(data);
-		}
 		ft_free_data(data);
 	}
 	else
@@ -36,12 +34,12 @@ int	main(int argc, char *argv[])
 	return (0);
 }
 
-void ft_one_philo(t_data *data) 
+void	ft_one_philo(t_data *data)
 {
 	data->start_time = ft_start_time();
-	print_status(&data->philo[0], data->philo->id, 'f');
+	ft_print_status(&data->philo[0], data->philo->id, 'f');
 	ft_usleep(data->die_time);
-	print_status(&data->philo[0], data->philo->id, 'd');
+	ft_print_status(&data->philo[0], data->philo->id, 'd');
 }
 
 int	ft_create_threads(t_data *data)
@@ -50,21 +48,22 @@ int	ft_create_threads(t_data *data)
 
 	i = -1;
 	data->start_time = ft_start_time();
-	while (++i < data->nb_philos) 
+	while (++i < data->nb_philos)
 	{
-    	if (pthread_create(&data->philo_ths[i], NULL, ft_philo, &data->philo[i]) != 0) 
+		if (pthread_create(&data->philo_ths[i], NULL, ft_philo,
+				&data->philo[i]) != 0)
 		{
-     		ft_error_exit("Error creating philosopher thread\n");
-    	}
-  	}
+			ft_error_exit("Error creating philosopher thread\n");
+		}
+	}
 	i = -1;
 	ft_monitor_checker(data);
-  	while (++i < data->nb_philos) 
+	while (++i < data->nb_philos)
 	{
-    	if (pthread_join(data->philo_ths[i], NULL) != 0) 
+		if (pthread_join(data->philo_ths[i], NULL) != 0)
 		{
-      		ft_error_exit("Error joining philosopher thread\n");
-    	}
+			ft_error_exit("Error joining philosopher thread\n");
+		}
 	}
 	return (0);
 }
@@ -91,12 +90,11 @@ void	ft_monitor_checker(t_data *data)
 	}
 }
 
-void *ft_philo(void *param) 
+void	*ft_philo(void *param)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)param;
-
 	while (1)
 	{
 		if (!ft_get_keep_iter(philo->data)
